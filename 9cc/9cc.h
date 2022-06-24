@@ -247,6 +247,60 @@ struct Node
 	bool		switch_has_default;
 };
 
+struct ANode
+{
+	NodeKind	kind;
+	ANode		*lhs;
+	ANode		*rhs;
+
+	char		*var_name;
+	int			var_name_len;
+
+	// num
+	int			val;
+
+	// str
+	int			str_index;
+
+	// ident
+	int			offset;
+	Type		*type;
+
+	// else of if
+	Node		*els;
+
+	// for
+	Node		*for_init;
+	Node		*for_if;
+	Node		*for_next;
+
+	// call & func
+	char		*fname;
+	int			flen;
+	int			argdef_count;
+	
+	// call
+	Node		*args;
+	
+	// func
+	Type		*arg_type;
+	Type		*ret_type;
+	int			stack_size;
+	LVar 		*locals;
+
+	// general
+	Node		*next;
+
+	StructMemberElem	*struct_elem;
+
+	bool		is_struct_address;
+
+	// valとlabelでswicth-case
+	int			switch_label;
+	SwitchCase	*switch_cases;
+	bool		switch_has_default;
+};
+
 struct	LVar
 {
 	LVar	*next;
@@ -291,16 +345,27 @@ struct s_struct_definition
 
 typedef struct	s_parseresult
 {
-	Token	*token;
 	Node	*code[1000];
-	Node	*func_defs[1000];
-	Node	*func_protos[1000];
 	Node	*global_vars[1000];
 	t_str_elem	*str_literals;
 	StructDef	*struct_defs[1000];
-	LVar	*locals;
+
+	Token	*token;
 }	ParseResult;
 
+typedef struct	s_analysisresult
+{
+	ANode	*code[1000];
+
+	ANode	*func_defs[1000];
+	ANode	*func_protos[1000];
+	ANode	*global_vars[1000];
+	t_str_elem	*str_literals;
+	StructDef	*struct_defs[1000];
+
+	ParseResult	*parse;
+	LVar	*locals;
+}	AnalysisResult;
 
 
 

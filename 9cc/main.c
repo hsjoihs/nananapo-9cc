@@ -2,18 +2,17 @@
 #include <stdio.h>
 #include <string.h>
 
-# define N_MAX 100
-
 char		*user_input;
 
 int main(int argc, char **argv)
 {
-	char		*str;
-	int			sign;
-	int			i;
-	t_str_elem	*lit;
-	Token		*token;
-	ParseResult	*parseresult;
+	char			*str;
+	int				sign;
+	int				i;
+	t_str_elem		*lit;
+	Token			*token;
+	ParseResult		*parseresult;
+	AnalysisResult	*semresult;
 
 	if (argc == 1)
 		user_input = read_file("-");
@@ -30,6 +29,9 @@ int main(int argc, char **argv)
 
 	parseresult = parse(token);
 	printf("# Node constructed\n");
+
+	semresult = analyze(parseresult);
+	printf("# Analyzed");
 
 	printf(".intel_syntax noprefix\n");
 	printf(".p2align	4, 0x90\n");
