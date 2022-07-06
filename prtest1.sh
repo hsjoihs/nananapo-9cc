@@ -53,4 +53,4 @@ mgcc "tokenutil"
 mgcc "error"
 
 cd $DIR
-gcc -o ../prpr fileutil.s gen.s main.s parse.s strutil.s tokenize.s tokenutil.s error.s
+gcc -fsanitize=address -fno-omit-frame-pointer -o ../prpr fileutil.s gen.s main.s parse.s strutil.s tokenize.s tokenutil.s error.s

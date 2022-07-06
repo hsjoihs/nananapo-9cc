@@ -1,7 +1,7 @@
 NAME=9cc
 TEST_SCRIPT=test.sh
 
-CC=gcc
+CC=gcc -fsanitize=address -fno-omit-frame-pointer
 CFLAGS=-std=c11 -g -static
 
 SRCS=$(wildcard *.c)

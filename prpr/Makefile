@@ -1,7 +1,7 @@
 NAME=prpr
 TEST_SCRIPT=test.sh
 
-CC=gcc
+CC=gcc -fsanitize=address -fno-omit-frame-pointer
 CFLAGS=-std=c11 -g -static
 
 SRCS=${wildcard *.c}
@@ -18,4 +18,4 @@ fclean: clean
 
 re: fclean ${NAME}
 
-.PHONEY: test clean fclean re
+.PHONY: test clean fclean re
